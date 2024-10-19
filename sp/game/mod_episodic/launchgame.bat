@@ -1,0 +1,1 @@
+"D:\SteamLibrary\steamapps\common\Source SDK Base 2013 Singleplayer\hl2.exe" -game "D:\Game mods\hl2 mods\port of original ds to source\sp\game\mod_episodic"

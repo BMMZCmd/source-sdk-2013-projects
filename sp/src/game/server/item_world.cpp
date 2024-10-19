@@ -60,13 +60,16 @@ void CWorldItem::Spawn( void )
 {
 	CBaseEntity *pEntity = NULL;
 
-	switch (m_iType) 
+	switch (m_iType)
 	{
 	case 44: // ITEM_BATTERY:
-		pEntity = CBaseEntity::Create( "item_battery", GetLocalOrigin(), GetLocalAngles() );
+		pEntity = CBaseEntity::Create("item_battery", GetLocalOrigin(), GetLocalAngles());
 		break;
 	case 45: // ITEM_SUIT:
-		pEntity = CBaseEntity::Create( "item_suit", GetLocalOrigin(), GetLocalAngles() );
+		pEntity = CBaseEntity::Create("item_suit", GetLocalOrigin(), GetLocalAngles());
+		break;
+	case 46:
+		pEntity = CBaseEntity::Create("item_armor", GetLocalOrigin(), GetLocalAngles());
 		break;
 	}
 

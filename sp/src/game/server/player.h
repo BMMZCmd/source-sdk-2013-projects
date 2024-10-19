@@ -137,6 +137,7 @@ enum PlayerPhysFlag_e
 // constant items
 #define ITEM_HEALTHKIT		1
 #define ITEM_BATTERY		4
+#define ITEM_ARMOR			4		
 
 #define AUTOAIM_2DEGREES  0.0348994967025
 #define AUTOAIM_5DEGREES  0.08715574274766

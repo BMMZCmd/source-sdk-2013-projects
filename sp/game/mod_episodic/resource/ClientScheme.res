@@ -783,8 +783,62 @@ Scheme
 			}
 			
 		}
-	}
-
+		
+		// CS:S weapons
+		"CSS_WeaponIcons"
+		{
+			"1"
+			{
+				"name"		"cs"
+				"tall"		"92" // 64
+				"tall_hidef"	"86" // 58
+				"weight"	"0"
+				"antialias" "1"
+				"additive"	"1"
+				"custom"	"1"
+			}
+		}
+		"CSS_WeaponIconsSelected"
+		{
+			"1"
+			{
+				"name"		"cs"
+				"tall"		"92" // 64
+				"tall_hidef"	"86" // 58
+				"weight"	"0"
+				"antialias" "1"
+				"blur"		"5"
+				"scanlines"	"2"
+				"additive"	"1"
+				"custom"	"1"
+			}
+		}
+		"CSS_WeaponIconsSmall"
+		{
+			"1"
+			{
+				"name"		"cs"
+				"tall"		"32"
+				"weight"	"0"
+				"antialias" "1"
+				"additive"	"1"
+				"custom"	"1"
+			}
+		}
+		
+		"CSS_WeaponIconsSmall2"
+		{
+			"1"
+			{
+				"name"		"Counter-Strike-HL2-style"
+				"tall"		"32"
+				"weight"	"0"
+				"antialias" "1"
+				"additive"	"1"
+				"custom"	"1"
+			}
+		}
+	} 
 	
 	//////////////////////// CUSTOM FONT FILES /////////////////////////////
 	//
@@ -793,7 +847,9 @@ Scheme
 	{
 		"1"		"resource/HALFLIFE2.ttf"
 		"2"		"resource/HL2crosshairs.ttf"
-		"3"	"resource/HL2EP2.ttf"		
+		"3"		"resource/HL2EP2.ttf"
+		"4"		"resource/cs.ttf" // CS:S weapons
+		"5"		"resource/cs_hl2_custom.ttf" // CS:S weapons
 	}
 
 }

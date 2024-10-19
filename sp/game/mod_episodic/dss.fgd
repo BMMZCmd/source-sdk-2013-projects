@@ -1,0 +1,3 @@
+@include "halflife2.fgd"
+@include "base.fgd"
+@include "css_weapons_in_hl2.fgd"

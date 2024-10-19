@@ -1,11 +1,11 @@
 "GameInfo"
 {
-	game 		"My First Episodic Mod"
-	title 		"HALF-LIFE'"
-	title2		""
-	supportsvr	1
-
+	game 		"Deleted Scenes Source"
+	title 		"Deleted Scenes Source"
+	supportsvr	0
 	type		singleplayer_only
+	nodegraph	1
+	gamedata	"dss.fgd"
 
 	FileSystem
 	{

@@ -41,6 +41,7 @@ static DynamicResupplyItems_t g_DynamicResupplyHealthItems[] =
 {
 	{ "item_healthkit", "Health",	0, 0.0f, },
 	{ "item_battery",	"Armor",	0, 0.0f },
+	{ "item_armor", "Armor", 0, 0.0f }
 };
 
 // Ammo types

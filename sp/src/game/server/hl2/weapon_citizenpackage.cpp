@@ -13,13 +13,13 @@
 IMPLEMENT_SERVERCLASS_ST(CWeaponCitizenPackage, DT_WeaponCitizenPackage)
 END_SEND_TABLE()
 
-BEGIN_DATADESC( CWeaponCitizenPackage )
+BEGIN_DATADESC(CWeaponCitizenPackage)
 END_DATADESC()
 
-LINK_ENTITY_TO_CLASS( weapon_citizenpackage, CWeaponCitizenPackage );
+LINK_ENTITY_TO_CLASS(weapon_citizenpackage, CWeaponCitizenPackage);
 PRECACHE_WEAPON_REGISTER(weapon_citizenpackage);
 
-acttable_t	CWeaponCitizenPackage::m_acttable[] = 
+acttable_t	CWeaponCitizenPackage::m_acttable[] =
 {
 	{ ACT_IDLE,						ACT_IDLE_PACKAGE,					false },
 	{ ACT_WALK,						ACT_WALK_PACKAGE,					false },
@@ -29,7 +29,7 @@ IMPLEMENT_ACTTABLE(CWeaponCitizenPackage);
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void CWeaponCitizenPackage::ItemPostFrame( void )
+void CWeaponCitizenPackage::ItemPostFrame(void)
 {
 	// Do nothing
 }
@@ -37,10 +37,10 @@ void CWeaponCitizenPackage::ItemPostFrame( void )
 //-----------------------------------------------------------------------------
 // Purpose: Remove the citizen package if it's ever dropped
 //-----------------------------------------------------------------------------
-void CWeaponCitizenPackage::Drop( const Vector &vecVelocity )
+void CWeaponCitizenPackage::Drop(const Vector& vecVelocity)
 {
-	BaseClass::Drop( vecVelocity );
-	UTIL_Remove( this );
+	BaseClass::Drop(vecVelocity);
+	UTIL_Remove(this);
 }
 
 
@@ -50,23 +50,23 @@ void CWeaponCitizenPackage::Drop( const Vector &vecVelocity )
 //-----------------------------------------------------------------------------
 class CWeaponCitizenSuitcase : public CWeaponCitizenPackage
 {
-	DECLARE_CLASS( CWeaponCitizenSuitcase, CWeaponCitizenPackage );
+	DECLARE_CLASS(CWeaponCitizenSuitcase, CWeaponCitizenPackage);
 public:
 	DECLARE_SERVERCLASS();
-	DECLARE_DATADESC();	
+	DECLARE_DATADESC();
 	DECLARE_ACTTABLE();
 };
 
 IMPLEMENT_SERVERCLASS_ST(CWeaponCitizenSuitcase, DT_WeaponCitizenSuitcase)
 END_SEND_TABLE()
 
-BEGIN_DATADESC( CWeaponCitizenSuitcase )
+BEGIN_DATADESC(CWeaponCitizenSuitcase)
 END_DATADESC()
 
-LINK_ENTITY_TO_CLASS( weapon_citizensuitcase, CWeaponCitizenSuitcase );
+LINK_ENTITY_TO_CLASS(weapon_citizensuitcase, CWeaponCitizenSuitcase);
 PRECACHE_WEAPON_REGISTER(weapon_citizensuitcase);
 
-acttable_t	CWeaponCitizenSuitcase::m_acttable[] = 
+acttable_t	CWeaponCitizenSuitcase::m_acttable[] =
 {
 	{ ACT_IDLE,						ACT_IDLE_SUITCASE,					false },
 	{ ACT_WALK,						ACT_WALK_SUITCASE,					false },

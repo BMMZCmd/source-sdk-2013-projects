@@ -6100,36 +6100,36 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 	CBaseEntity *pEntity;
 	trace_t tr;
 
-	switch ( iImpulse )
+	switch (iImpulse)
 	{
 	case 76:
+	{
+		if (!giPrecacheGrunt)
 		{
-			if (!giPrecacheGrunt)
-			{
-				giPrecacheGrunt = 1;
-				Msg( "You must now restart to use Grunt-o-matic.\n");
-			}
-			else
-			{
-				Vector forward = UTIL_YawToVector( EyeAngles().y );
-				Create("NPC_human_grunt", GetLocalOrigin() + forward * 128, GetLocalAngles());
-			}
-			break;
+			giPrecacheGrunt = 1;
+			Msg("You must now restart to use Grunt-o-matic.\n");
 		}
+		else
+		{
+			Vector forward = UTIL_YawToVector(EyeAngles().y);
+			Create("NPC_human_grunt", GetLocalOrigin() + forward * 128, GetLocalAngles());
+		}
+		break;
+	}
 
 	case 81:
 
-		GiveNamedItem( "weapon_cubemap" );
+		GiveNamedItem("weapon_cubemap");
 		break;
 
 	case 82:
 		// Cheat to create a jeep in front of the player
-		CreateJeep( this );
+		CreateJeep(this);
 		break;
 
 	case 83:
 		// Cheat to create a airboat in front of the player
-		CreateAirboat( this );
+		CreateAirboat(this);
 		break;
 
 	case 101:
@@ -6138,166 +6138,222 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		EquipSuit();
 
 		// Give the player everything!
-		GiveAmmo( 255,	"Pistol");
-		GiveAmmo( 255,	"AR2");
-		GiveAmmo( 5,	"AR2AltFire");
-		GiveAmmo( 255,	"SMG1");
-		GiveAmmo( 255,	"Buckshot");
-		GiveAmmo( 3,	"smg1_grenade");
-		GiveAmmo( 3,	"rpg_round");
-		GiveAmmo( 5,	"grenade");
-		GiveAmmo( 32,	"357" );
-		GiveAmmo( 16,	"XBowBolt" );
+		GiveAmmo(255, "Pistol");
+		GiveAmmo(255, "AR2");
+		GiveAmmo(5, "AR2AltFire");
+		GiveAmmo(255, "SMG1");
+		GiveAmmo(255, "Buckshot");
+		GiveAmmo(3, "smg1_grenade");
+		GiveAmmo(3, "rpg_round");
+		GiveAmmo(5, "grenade");
+		GiveAmmo(32, "357");
+		GiveAmmo(16, "XBowBolt");
 #ifdef HL2_EPISODIC
-		GiveAmmo( 5,	"Hopwire" );
+		GiveAmmo(5, "Hopwire");
 #endif		
-#ifdef CSS_WEAPONS_IN_HL2
-		GiveAmmo( 100,	"45ACP" );
-		GiveAmmo( 52,	"357SIG" );
-		GiveAmmo( 90,	"556mm" );
-		GiveAmmo( 60,	"762mm" );
-#endif
-		GiveNamedItem( "weapon_smg1" );
-		GiveNamedItem( "weapon_frag" );
-		GiveNamedItem( "weapon_crowbar" );
-		GiveNamedItem( "weapon_pistol" );
-		GiveNamedItem( "weapon_ar2" );
-		GiveNamedItem( "weapon_shotgun" );
-		GiveNamedItem( "weapon_physcannon" );
-		GiveNamedItem( "weapon_bugbait" );
-		GiveNamedItem( "weapon_rpg" );
-		GiveNamedItem( "weapon_357" );
-		GiveNamedItem( "weapon_crossbow" );
+		GiveNamedItem("weapon_smg1");
+		GiveNamedItem("weapon_frag");
+		GiveNamedItem("weapon_crowbar");
+		GiveNamedItem("weapon_pistol");
+		GiveNamedItem("weapon_ar2");
+		GiveNamedItem("weapon_shotgun");
+		GiveNamedItem("weapon_physcannon");
+		GiveNamedItem("weapon_bugbait");
+		GiveNamedItem("weapon_rpg");
+		GiveNamedItem("weapon_357");
+		GiveNamedItem("weapon_crossbow");
 #ifdef HL2_EPISODIC
 		// GiveNamedItem( "weapon_magnade" );
 #endif
-		if ( GetHealth() < 100 )
+		if (GetHealth() < 100)
 		{
-			TakeHealth( 25, DMG_GENERIC );
+			TakeHealth(25, DMG_GENERIC);
 		}
-		
-		gEvilImpulse101		= false;
+
+		gEvilImpulse101 = false;
 
 		break;
 
 	case 102:
 		// Gibbage!!!
-		CGib::SpawnRandomGibs( this, 1, GIB_HUMAN );
+		CGib::SpawnRandomGibs(this, 1, GIB_HUMAN);
 		break;
 
 	case 103:
 		// What the hell are you doing?
-		pEntity = FindEntityForward( this, true );
-		if ( pEntity )
+		pEntity = FindEntityForward(this, true);
+		if (pEntity)
 		{
-			CAI_BaseNPC *pNPC = pEntity->MyNPCPointer();
-			if ( pNPC )
+			CAI_BaseNPC* pNPC = pEntity->MyNPCPointer();
+			if (pNPC)
 				pNPC->ReportAIState();
 		}
 		break;
 
 	case 106:
 		// Give me the classname and targetname of this entity.
-		pEntity = FindEntityForward( this, true );
-		if ( pEntity )
+		pEntity = FindEntityForward(this, true);
+		if (pEntity)
 		{
-			Msg( "Classname: %s", pEntity->GetClassname() );
-			
-			if ( pEntity->GetEntityName() != NULL_STRING )
+			Msg("Classname: %s", pEntity->GetClassname());
+
+			if (pEntity->GetEntityName() != NULL_STRING)
 			{
-				Msg( " - Name: %s\n", STRING( pEntity->GetEntityName() ) );
+				Msg(" - Name: %s\n", STRING(pEntity->GetEntityName()));
 			}
 			else
 			{
-				Msg( " - Name: No Targetname\n" );
+				Msg(" - Name: No Targetname\n");
 			}
 
-			if ( pEntity->m_iParent != NULL_STRING )
-				Msg( "Parent: %s\n", STRING(pEntity->m_iParent) );
+			if (pEntity->m_iParent != NULL_STRING)
+				Msg("Parent: %s\n", STRING(pEntity->m_iParent));
 
-			Msg( "Model: %s\n", STRING( pEntity->GetModelName() ) );
-			if ( pEntity->m_iGlobalname != NULL_STRING )
-				Msg( "Globalname: %s\n", STRING(pEntity->m_iGlobalname) );
+			Msg("Model: %s\n", STRING(pEntity->GetModelName()));
+			if (pEntity->m_iGlobalname != NULL_STRING)
+				Msg("Globalname: %s\n", STRING(pEntity->m_iGlobalname));
 		}
 		break;
 
 	case 107:
-		{
-			trace_t tr;
+	{
+		trace_t tr;
 
-			edict_t		*pWorld = engine->PEntityOfEntIndex( 0 );
+		edict_t* pWorld = engine->PEntityOfEntIndex(0);
 
-			Vector start = EyePosition();
-			Vector forward;
-			EyeVectors( &forward );
-			Vector end = start + forward * 1024;
-			UTIL_TraceLine( start, end, MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr );
-			if ( tr.m_pEnt )
-				pWorld = tr.m_pEnt->edict();
+		Vector start = EyePosition();
+		Vector forward;
+		EyeVectors(&forward);
+		Vector end = start + forward * 1024;
+		UTIL_TraceLine(start, end, MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr);
+		if (tr.m_pEnt)
+			pWorld = tr.m_pEnt->edict();
 
-			const char *pTextureName = tr.surface.name;
+		const char* pTextureName = tr.surface.name;
 
-			if ( pTextureName )
-				Msg( "Texture: %s\n", pTextureName );
-		}
-		break;
+		if (pTextureName)
+			Msg("Texture: %s\n", pTextureName);
+	}
+	break;
 
 	//
 	// Sets the debug NPC to be the NPC under the crosshair.
 	//
 	case 108:
 	{
-		pEntity = FindEntityForward( this, true );
-		if ( pEntity )
+		pEntity = FindEntityForward(this, true);
+		if (pEntity)
 		{
-			CAI_BaseNPC *pNPC = pEntity->MyNPCPointer();
-			if ( pNPC != NULL )
+			CAI_BaseNPC* pNPC = pEntity->MyNPCPointer();
+			if (pNPC != NULL)
 			{
-				Msg( "Debugging %s (0x%p)\n", pNPC->GetClassname(), pNPC );
-				CAI_BaseNPC::SetDebugNPC( pNPC );
+				Msg("Debugging %s (0x%p)\n", pNPC->GetClassname(), pNPC);
+				CAI_BaseNPC::SetDebugNPC(pNPC);
 			}
 		}
 		break;
 	}
 
 	case	195:// show shortest paths for entire level to nearest node
-		{
-			Create("node_viewer_fly", GetLocalOrigin(), GetLocalAngles());
-		}
-		break;
+	{
+		Create("node_viewer_fly", GetLocalOrigin(), GetLocalAngles());
+	}
+	break;
 	case	196:// show shortest paths for entire level to nearest node
-		{
-			Create("node_viewer_large", GetLocalOrigin(), GetLocalAngles());
-		}
-		break;
+	{
+		Create("node_viewer_large", GetLocalOrigin(), GetLocalAngles());
+	}
+	break;
 	case	197:// show shortest paths for entire level to nearest node
-		{
-			Create("node_viewer_human", GetLocalOrigin(), GetLocalAngles());
-		}
-		break;
+	{
+		Create("node_viewer_human", GetLocalOrigin(), GetLocalAngles());
+	}
+	break;
 	case	202:// Random blood splatter
-		{
-			Vector forward;
-			EyeVectors( &forward );
-			UTIL_TraceLine ( EyePosition(), 
-				EyePosition() + forward * 128, 
-				MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, & tr);
+	{
+		Vector forward;
+		EyeVectors(&forward);
+		UTIL_TraceLine(EyePosition(),
+			EyePosition() + forward * 128,
+			MASK_SOLID_BRUSHONLY, this, COLLISION_GROUP_NONE, &tr);
 
-			if ( tr.fraction != 1.0 )
-			{// line hit something, so paint a decal
-				CBloodSplat *pBlood = CREATE_UNSAVED_ENTITY( CBloodSplat, "bloodsplat" );
-				pBlood->Spawn( this );
-			}
+		if (tr.fraction != 1.0)
+		{// line hit something, so paint a decal
+			CBloodSplat* pBlood = CREATE_UNSAVED_ENTITY(CBloodSplat, "bloodsplat");
+			pBlood->Spawn(this);
+		}
+	}
+	break;
+	case	203:// remove creature.
+		pEntity = FindEntityForward(this, true);
+		if (pEntity)
+		{
+			UTIL_Remove(pEntity);
+			//			if ( pEntity->m_takedamage )
+			//				pEntity->SetThink(SUB_Remove);
 		}
 		break;
-	case	203:// remove creature.
-		pEntity = FindEntityForward( this, true );
-		if ( pEntity )
+	case 666:
+		gEvilImpulse101 = true;
+
+		EquipSuit();
+
+#ifdef CSS_WEAPONS_IN_HL2
+		// Weapons uwu eh uh
+		// Pistols
+		GiveNamedItem("weapon_css_glock");
+		GiveNamedItem("weapon_css_usp");
+		GiveNamedItem("weapon_css_p228");
+		GiveNamedItem("weapon_css_deagle");
+		GiveNamedItem("weapon_css_fiveseven");
+		GiveNamedItem("weapon_css_elite");
+
+		// SMGs (Sub-Machine Guns/Small Machine Guns)
+		GiveNamedItem("weapon_css_tmp");
+		GiveNamedItem("weapon_css_mp5navy");
+		GiveNamedItem("weapon_css_ump45");
+		GiveNamedItem("weapon_css_p90");
+		GiveNamedItem("weapon_css_mac10"); // Add this if you want the MAC-10 as well
+
+		// Shotguns
+		GiveNamedItem("weapon_css_m3");
+		GiveNamedItem("weapon_css_xm1014");
+
+		// Rifles
+		GiveNamedItem("weapon_css_famas");
+		GiveNamedItem("weapon_css_aug");
+		GiveNamedItem("weapon_css_sg552");
+		GiveNamedItem("weapon_css_galil");
+		GiveNamedItem("weapon_css_ak47");
+		GiveNamedItem("weapon_css_scout");
+		GiveNamedItem("weapon_css_sg550");
+		GiveNamedItem("weapon_css_awp");
+		GiveNamedItem("weapon_css_g3sg1");
+
+		// Misc (Machine Gun)
+		GiveNamedItem("weapon_css_m249");
+
+		// ammo please *moans*
+		GiveAmmo(100, "45ACP");
+		GiveAmmo(52, "357SIG");
+		GiveAmmo(90, "556mm");
+		GiveAmmo(60, "762mm");
+#endif
+
+#ifdef DSS
+		GiveNamedItem("weapon_blowtorch");
+		GiveNamedItem("weapon_briefcase");
+		GiveNamedItem("weapon_camera");
+		GiveNamedItem("weapon_radio");
+		GiveNamedItem("weapon_m60");
+#endif
+		if (GetHealth() < 100)
 		{
-			UTIL_Remove( pEntity );
-//			if ( pEntity->m_takedamage )
-//				pEntity->SetThink(SUB_Remove);
+			TakeHealth(25, DMG_GENERIC);
 		}
+
+		gEvilImpulse101 = false;
+
 		break;
 	}
 #endif	// HLDEMO_BUILD
