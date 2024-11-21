@@ -140,6 +140,14 @@ $Project "Client (Episodic)"
 				$File	"$SRCDIR\game\shared\hl2\weapon_css_smgs.cpp"
 				$File	"$SRCDIR\game\shared\hl2\weapon_css_misc.cpp"
 			}
+			
+			$Folder "DSS"
+			{
+				$Folder "HUDs" 
+				{
+					$File "dss\hud\hud_objective.cpp"
+				}
+			}
 		}
 	}
 	

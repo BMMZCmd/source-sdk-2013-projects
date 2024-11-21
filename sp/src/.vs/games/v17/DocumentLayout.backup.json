@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7855B476-B6D4-535D-F7A9-D623245F8B07}|game\\server\\server_episodic.vcxproj|D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{7855B476-B6D4-535D-F7A9-D623245F8B07}|game\\server\\server_episodic.vcxproj|solutionrelative:game\\server\\player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{353A799F-E73F-7A69-07AD-B2AD57F3B775}|game\\client\\client_episodic.vcxproj|D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\client\\dss\\hud\\hud_objective.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{353A799F-E73F-7A69-07AD-B2AD57F3B775}|game\\client\\client_episodic.vcxproj|solutionrelative:game\\client\\dss\\hud\\hud_objective.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3EE918E-6836-5578-1FA2-5703048552B9}|game\\server\\server_hl2.vcxproj|D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\hl2\\hl2_player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C3EE918E-6836-5578-1FA2-5703048552B9}|game\\server\\server_hl2.vcxproj|solutionrelative:game\\server\\hl2\\hl2_player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{353A799F-E73F-7A69-07AD-B2AD57F3B775}|game\\client\\client_episodic.vcxproj|D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\shared\\hl2\\weapon_css_base.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{353A799F-E73F-7A69-07AD-B2AD57F3B775}|game\\client\\client_episodic.vcxproj|solutionrelative:game\\shared\\hl2\\weapon_css_base.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{353A799F-E73F-7A69-07AD-B2AD57F3B775}|game\\client\\client_episodic.vcxproj|D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\client\\in_main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{353A799F-E73F-7A69-07AD-B2AD57F3B775}|game\\client\\client_episodic.vcxproj|solutionrelative:game\\client\\in_main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7855B476-B6D4-535D-F7A9-D623245F8B07}|game\\server\\server_episodic.vcxproj|D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\dss\\weapons\\weapon_m60.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7855B476-B6D4-535D-F7A9-D623245F8B07}|game\\server\\server_episodic.vcxproj|solutionrelative:game\\server\\dss\\weapons\\weapon_m60.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7855B476-B6D4-535D-F7A9-D623245F8B07}|game\\server\\server_episodic.vcxproj|D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\hl2\\weapon_smg1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{7855B476-B6D4-535D-F7A9-D623245F8B07}|game\\server\\server_episodic.vcxproj|solutionrelative:game\\server\\hl2\\weapon_smg1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,25 +33,97 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "DockedWidth": 1159,
+          "SelectedChildIndex": 4,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "in_main.cpp",
+              "DocumentMoniker": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\client\\in_main.cpp",
+              "RelativeDocumentMoniker": "game\\client\\in_main.cpp",
+              "ToolTip": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\client\\in_main.cpp",
+              "RelativeToolTip": "game\\client\\in_main.cpp",
+              "ViewState": "AgIAAFIGAAAAAAAAAAA0wF0GAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-18T08:56:22.842Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "weapon_css_base.cpp",
+              "DocumentMoniker": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\shared\\hl2\\weapon_css_base.cpp",
+              "RelativeDocumentMoniker": "game\\shared\\hl2\\weapon_css_base.cpp",
+              "ToolTip": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\shared\\hl2\\weapon_css_base.cpp",
+              "RelativeToolTip": "game\\shared\\hl2\\weapon_css_base.cpp",
+              "ViewState": "AgIAACICAAAAAAAAAAAcwCQCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-20T14:42:01.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "weapon_smg1.cpp",
+              "DocumentMoniker": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\hl2\\weapon_smg1.cpp",
+              "RelativeDocumentMoniker": "game\\server\\hl2\\weapon_smg1.cpp",
+              "ToolTip": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\hl2\\weapon_smg1.cpp",
+              "RelativeToolTip": "game\\server\\hl2\\weapon_smg1.cpp",
+              "ViewState": "AgIAADIAAAAAAAAAAAAcwBkAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-20T14:18:44.157Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "hl2_player.cpp",
+              "DocumentMoniker": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\hl2\\hl2_player.cpp",
+              "RelativeDocumentMoniker": "game\\server\\hl2\\hl2_player.cpp",
+              "ToolTip": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\hl2\\hl2_player.cpp",
+              "RelativeToolTip": "game\\server\\hl2\\hl2_player.cpp",
+              "ViewState": "AgIAAN0AAAAAAAAAAAA4wOMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-20T09:52:07.62Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "player.cpp",
-              "DocumentMoniker": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\player.cpp",
-              "RelativeDocumentMoniker": "game\\server\\player.cpp",
-              "ToolTip": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\player.cpp",
-              "RelativeToolTip": "game\\server\\player.cpp",
-              "ViewState": "AgIAAAIXAAAAAAAAAIA3wBQXAAAOAAAAAAAAAA==",
+              "Title": "hud_objective.cpp",
+              "DocumentMoniker": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\client\\dss\\hud\\hud_objective.cpp",
+              "RelativeDocumentMoniker": "game\\client\\dss\\hud\\hud_objective.cpp",
+              "ToolTip": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\client\\dss\\hud\\hud_objective.cpp",
+              "RelativeToolTip": "game\\client\\dss\\hud\\hud_objective.cpp",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-10-19T03:26:20.954Z",
+              "WhenOpened": "2024-11-20T09:20:37.533Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "weapon_m60.cpp",
+              "DocumentMoniker": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\dss\\weapons\\weapon_m60.cpp",
+              "RelativeDocumentMoniker": "game\\server\\dss\\weapons\\weapon_m60.cpp",
+              "ToolTip": "D:\\Game mods\\hl2 mods\\port of original ds to source\\sp\\src\\game\\server\\dss\\weapons\\weapon_m60.cpp",
+              "RelativeToolTip": "game\\server\\dss\\weapons\\weapon_m60.cpp",
+              "ViewState": "AgIAACMAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-11-18T13:02:12.592Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 1159,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
             }
           ]
         }

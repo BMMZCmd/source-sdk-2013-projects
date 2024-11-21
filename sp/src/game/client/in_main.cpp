@@ -145,6 +145,8 @@ static  kbutton_t   in_grenade2;
 static	kbutton_t	in_attack3;
 kbutton_t	in_ducktoggle;
 
+static kbutton_t	in_objective;
+
 /*
 ===========
 IN_CenterView_f
@@ -490,6 +492,9 @@ void IN_Grenade2Down( const CCommand &args ) { KeyDown( &in_grenade2, args[1] );
 void IN_XboxStub( const CCommand &args ) { /*do nothing*/ }
 void IN_Attack3Down( const CCommand &args ) { KeyDown(&in_attack3, args[1] );}
 void IN_Attack3Up( const CCommand &args ) { KeyUp(&in_attack3, args[1] );}
+
+void IN_ObjectiveDown(const CCommand& args) { KeyDown(&in_objective, args[1]); }
+void IN_ObjectiveUp(const CCommand& args) { KeyUp(&in_objective, args[1]); }
 
 void IN_DuckToggle( const CCommand &args ) 
 { 
@@ -1469,6 +1474,8 @@ int CInput::GetButtonBits( int bResetState )
 	CalcButtonBits( bits, IN_GRENADE1, s_ClearInputState, &in_grenade1, bResetState );
 	CalcButtonBits( bits, IN_GRENADE2, s_ClearInputState, &in_grenade2, bResetState );
 	CalcButtonBits( bits, IN_ATTACK3, s_ClearInputState, &in_attack3, bResetState );
+	
+	CalcButtonBits(bits, IN_OBJECTIVE, s_ClearInputState, &in_objective, bResetState);
 
 	if ( KeyState(&in_ducktoggle) )
 	{
@@ -1583,8 +1590,8 @@ static ConCommand startmoveleft("+moveleft", IN_MoveleftDown);
 static ConCommand endmoveleft("-moveleft", IN_MoveleftUp);
 static ConCommand startmoveright("+moveright", IN_MoverightDown);
 static ConCommand endmoveright("-moveright", IN_MoverightUp);
-static ConCommand startspeed("+speed", IN_SpeedDown);
-static ConCommand endspeed("-speed", IN_SpeedUp);
+//static ConCommand startspeed("+speed", IN_SpeedDown);
+//static ConCommand endspeed("-speed", IN_SpeedUp);
 static ConCommand startwalk("+walk", IN_WalkDown);
 static ConCommand endwalk("-walk", IN_WalkUp);
 static ConCommand startattack("+attack", IN_AttackDown);
@@ -1618,14 +1625,17 @@ static ConCommand startbreak("+break",IN_BreakDown);
 static ConCommand endbreak("-break",IN_BreakUp);
 static ConCommand force_centerview("force_centerview", IN_CenterView_f);
 static ConCommand joyadvancedupdate("joyadvancedupdate", IN_Joystick_Advanced_f, "", FCVAR_CLIENTCMD_CAN_EXECUTE);
-static ConCommand startzoom("+zoom", IN_ZoomDown);
-static ConCommand endzoom("-zoom", IN_ZoomUp);
+//static ConCommand startzoom("+zoom", IN_ZoomDown);
+//static ConCommand endzoom("-zoom", IN_ZoomUp);
 static ConCommand endgrenade1( "-grenade1", IN_Grenade1Up );
 static ConCommand startgrenade1( "+grenade1", IN_Grenade1Down );
 static ConCommand endgrenade2( "-grenade2", IN_Grenade2Up );
 static ConCommand startgrenade2( "+grenade2", IN_Grenade2Down );
 static ConCommand startattack3("+attack3", IN_Attack3Down);
 static ConCommand endattack3("-attack3", IN_Attack3Up);
+
+static ConCommand showobjmenu("+objective", IN_ObjectiveDown);
+static ConCommand hideobjmenu("-objective", IN_ObjectiveUp);
 
 #ifdef TF_CLIENT_DLL
 static ConCommand toggle_duck( "toggle_duck", IN_DuckToggle );

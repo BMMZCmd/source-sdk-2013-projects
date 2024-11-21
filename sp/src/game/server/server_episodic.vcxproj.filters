@@ -3355,25 +3355,25 @@
     <ClCompile Include="..\..\game\shared\hl2\weapon_css_smgs.cpp">
       <Filter>Source Files\HL2 DLL\CS:S Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="episodic\dss\items\item_armor.cpp">
+    <ClCompile Include="dss\items\item_armor.cpp">
       <Filter>Source Files\HL2 DLL\DSS\Items</Filter>
     </ClCompile>
-    <ClCompile Include="episodic\dss\weapons\weapon_blowtorch.cpp">
+    <ClCompile Include="dss\weapons\weapon_blowtorch.cpp">
       <Filter>Source Files\HL2 DLL\DSS\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="episodic\dss\weapons\weapon_briefcase.cpp">
+    <ClCompile Include="dss\weapons\weapon_briefcase.cpp">
       <Filter>Source Files\HL2 DLL\DSS\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="episodic\dss\weapons\weapon_camera.cpp">
+    <ClCompile Include="dss\weapons\weapon_camera.cpp">
       <Filter>Source Files\HL2 DLL\DSS\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="episodic\dss\weapons\weapon_m60.cpp">
+    <ClCompile Include="dss\weapons\weapon_m60.cpp">
       <Filter>Source Files\HL2 DLL\DSS\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="episodic\dss\weapons\weapon_m60_experimental.cpp">
+    <ClCompile Include="dss\weapons\weapon_m60_experimental.cpp">
       <Filter>Source Files\HL2 DLL\DSS\Weapons</Filter>
     </ClCompile>
-    <ClCompile Include="episodic\dss\weapons\weapon_radio.cpp">
+    <ClCompile Include="dss\weapons\weapon_radio.cpp">
       <Filter>Source Files\HL2 DLL\DSS\Weapons</Filter>
     </ClCompile>
     <ClCompile Include="hl2\grenade_beam.cpp">

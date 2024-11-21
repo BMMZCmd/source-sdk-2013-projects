@@ -34,6 +34,12 @@
     <Filter Include="Source Files\HL2 DLL\CS:S Weapons">
       <UniqueIdentifier>{170BB09A-5A09-40A2-1AC1-EC9ABB75A967}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\HL2 DLL\DSS">
+      <UniqueIdentifier>{7738B201-B878-E9AC-1B9C-597E1885DBD6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\HL2 DLL\DSS\HUDs">
+      <UniqueIdentifier>{7ADC6523-9603-C96D-0469-08BBFF776D8B}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Precompiled Header">
       <UniqueIdentifier>{A7D26A13-21F4-C6B5-5922-8A4FB05AF07D}</UniqueIdentifier>
     </Filter>
@@ -3225,6 +3231,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\hl2\weapon_css_smgs.cpp">
       <Filter>Source Files\HL2 DLL\CS:S Weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="dss\hud\hud_objective.cpp">
+      <Filter>Source Files\HL2 DLL\DSS\HUDs</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files\Precompiled Header</Filter>

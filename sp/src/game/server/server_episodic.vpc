@@ -317,12 +317,12 @@ $Project "Server (Episodic)"
 			{
 				$Folder "Weapons"
 				{
-					$File "episodic\dss\weapons\weapon_briefcase.cpp"
-					$File "episodic\dss\weapons\weapon_camera.cpp"
-					$File "episodic\dss\weapons\weapon_blowtorch.cpp"
-					$File "episodic\dss\weapons\weapon_radio.cpp"
-					$File "episodic\dss\weapons\weapon_m60.cpp"
-					$File "episodic\dss\weapons\weapon_m60_experimental.cpp"
+					$File "dss\weapons\weapon_briefcase.cpp"
+					$File "dss\weapons\weapon_camera.cpp"
+					$File "dss\weapons\weapon_blowtorch.cpp"
+					$File "dss\weapons\weapon_radio.cpp"
+					$File "dss\weapons\weapon_m60.cpp"
+					$File "dss\weapons\weapon_m60_experimental.cpp"
 				}
 				
 				$Folder "NPCs"
@@ -332,7 +332,7 @@ $Project "Server (Episodic)"
 				
 				$Folder "Items"
 				{
-					$File "episodic\dss\items\item_armor.cpp"
+					$File "dss\items\item_armor.cpp"
 				}
 			}
 		}
