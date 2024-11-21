@@ -33,14 +33,14 @@ CWeaponM60::CWeaponM60()
 
 void CWeaponM60::AddViewKick()
 {
-	float flEasyDampen = 0.5f;
-	float flMaxVerticalKick = 1.0f;	//Degrees
-	float flSlideLimit = 2.0f;	//Seconds
+	float flEasyDampen = 0.1f;
+	float flMaxVerticalKick = 20.0f;	//Degrees
+	float flSlideLimit = 5.0f;	//Seconds
 
 	//Get the view kick
 	CBasePlayer* pPlayer = ToBasePlayer(GetOwner());
 
-	if (pPlayer == NULL)
+	if (!pPlayer)
 		return;
 
 	DoMachineGunKick(pPlayer, flEasyDampen, flMaxVerticalKick, m_fFireDuration, flSlideLimit);
