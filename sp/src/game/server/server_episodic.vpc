@@ -298,6 +298,14 @@ $Project "Server (Episodic)"
 				$File	"hl2\weapon_flaregun.cpp"
 				$File	"hl2\weapon_flaregun.h"
 			}
+			
+			$Folder "isozerosep"
+			{
+				$File	"isozerosep\weapon_smokegrenade.cpp"
+				$File	"isozerosep\weapon_smokegrenade.h"
+				$File	"isozerosep\grenade_smoke.cpp"
+				$File	"isozerosep\grenade_smoke.h"
+			}
 		}
 	}
 }
