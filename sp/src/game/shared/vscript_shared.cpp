@@ -395,7 +395,12 @@ CON_COMMAND_F( script_debug, "Connect the vscript VM to the script debugger", FC
 		CGWarning( 0, CON_GROUP_VSCRIPT, "Scripting disabled or no server running\n" );
 		return;
 	}
+
+#ifdef MAPBASE_VSCRIPT
+	g_pScriptVM->ConnectDebugger( vscript_debugger_port );
+#else
 	g_pScriptVM->ConnectDebugger();
+#endif
 }
 
 #ifdef CLIENT_DLL
@@ -507,7 +512,7 @@ void RunAutorunScripts()
 
 //-----------------------------------------------------------------------------
 
-static short VSCRIPT_SERVER_SAVE_RESTORE_VERSION = 2;
+static short VSCRIPT_SERVER_SAVE_RESTORE_VERSION = 3;
 
 //-----------------------------------------------------------------------------
 
@@ -624,6 +629,9 @@ public:
 				if ( g_pScriptVM->GetValue( STRING(pEnt->m_iszScriptId), &variant ) && variant.m_type == FIELD_HSCRIPT )
 				{
 					pEnt->m_ScriptScope.Init( variant.m_hScript, false );
+#ifdef MAPBASE_VSCRIPT
+					g_pScriptVM->SetValue( pEnt->m_ScriptScope, "self", pEnt->m_hScriptInstance );
+#endif
 #ifndef CLIENT_DLL
 					pEnt->RunPrecacheScripts();
 #endif

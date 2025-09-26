@@ -606,6 +606,9 @@ public:
 
 	void ValidateEntityConnections();
 	void FireNamedOutput( const char *pszOutput, variant_t variant, CBaseEntity *pActivator, CBaseEntity *pCaller, float flDelay = 0.0f );
+#ifdef MAPBASE
+	virtual
+#endif
 	CBaseEntityOutput *FindNamedOutput( const char *pszOutput );
 #ifdef MAPBASE_VSCRIPT
 	void ScriptFireOutput( const char *pszOutput, HSCRIPT hActivator, HSCRIPT hCaller, const char *szValue, float flDelay );
@@ -864,6 +867,13 @@ public:
 
 	void		 SetAIWalkable( bool bBlocksLOS );
 	bool		 IsAIWalkable( void );
+
+#ifdef MAPBASE
+	// Handle a potentially complex command from a client.
+	// Returns true if the command was handled successfully.
+	virtual bool	HandleEntityCommand(CBasePlayer* pClient, KeyValues* pKeyValues) { return false; }
+#endif // MAPBASE
+
 private:
 	int SaveDataDescBlock( ISave &save, datamap_t *dmap );
 	int RestoreDataDescBlock( IRestore &restore, datamap_t *dmap );
@@ -1430,7 +1440,7 @@ public:
 	virtual	bool FVisible ( CBaseEntity *pEntity, int traceMask = MASK_BLOCKLOS, CBaseEntity **ppBlocker = NULL );
 	virtual bool FVisible( const Vector &vecTarget, int traceMask = MASK_BLOCKLOS, CBaseEntity **ppBlocker = NULL );
 
-	virtual bool CanBeSeenBy( CAI_BaseNPC *pNPC ) { return true; } // allows entities to be 'invisible' to NPC senses.
+	virtual bool CanBeSeenBy( CAI_BaseNPC *pNPC ); // allows entities to be 'invisible' to NPC senses.
 
 	// This function returns a value that scales all damage done by this entity.
 	// Use CDamageModifier to hook in damage modifiers on a guy.
@@ -2097,12 +2107,14 @@ public:
 	HSCRIPT ScriptEntityToWorldTransform( void );
 
 	HSCRIPT ScriptGetPhysicsObject( void );
+	void ScriptPhysicsInitNormal( int nSolidType, int nSolidFlags, bool createAsleep );
+	void ScriptPhysicsDestroyObject() { VPhysicsDestroyObject(); }
 
 	void ScriptSetParent(HSCRIPT hParent, const char *szAttachment);
 #endif
 
 	const char* ScriptGetModelName(void) const;
-	HSCRIPT ScriptGetModelKeyValues(void);
+	HSCRIPT_RC ScriptGetModelKeyValues(void);
 
 	void ScriptStopSound(const char* soundname);
 	void ScriptEmitSound(const char* soundname);
@@ -2165,10 +2177,13 @@ public:
 	static ScriptHook_t	g_Hook_VPhysicsCollision;
 	static ScriptHook_t	g_Hook_FireBullets;
 	static ScriptHook_t	g_Hook_OnDeath;
+	static ScriptHook_t	g_Hook_OnTakeDamage;
 	static ScriptHook_t	g_Hook_OnKilledOther;
 	static ScriptHook_t	g_Hook_HandleInteraction;
 	static ScriptHook_t	g_Hook_ModifyEmitSoundParams;
 	static ScriptHook_t	g_Hook_ModifySentenceParams;
+	static ScriptHook_t	g_Hook_ModifyOrAppendCriteria;
+	static ScriptHook_t	g_Hook_CanBeSeenBy;
 #endif
 
 	string_t		m_iszVScripts;
@@ -2176,9 +2191,7 @@ public:
 	CScriptScope	m_ScriptScope;
 	HSCRIPT			m_hScriptInstance;
 	string_t		m_iszScriptId;
-#ifdef MAPBASE_VSCRIPT
-	HSCRIPT			m_pScriptModelKeyValues;
-#else
+#ifndef MAPBASE_VSCRIPT
 	CScriptKeyValues* m_pScriptModelKeyValues;
 #endif
 };

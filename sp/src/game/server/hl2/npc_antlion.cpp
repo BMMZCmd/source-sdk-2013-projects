@@ -378,13 +378,14 @@ void CNPC_Antlion::Spawn( void )
 
 		sInteraction01.vecRelativeOrigin = Vector(224, 0, 0);
 		sInteraction01.angRelativeAngles = QAngle(0, 180, 0);
-		//sInteraction01.iFlags |= SCNPC_FLAG_TEST_OTHER_ANGLES;
+		sInteraction01.iFlags |= SCNPC_FLAG_TEST_OTHER_ANGLES;
 		sInteraction01.iFlags |= SCNPC_FLAG_TEST_END_POSITION;
 		sInteraction01.vecRelativeEndPos = Vector(312, -10, 0);
 		sInteraction01.iTriggerMethod = SNPCINT_AUTOMATIC_IN_COMBAT;
 		sInteraction01.flDelay = 15.0f;
 		sInteraction01.iFlags |= SCNPC_FLAG_MAPBASE_ADDITION;
 		sInteraction01.flDistSqr = (8 * 8);
+		sInteraction01.flMaxAngleDiff = 180.0f; // Initiate from any angle
 
 
 		ScriptedNPCInteraction_t sInteraction02;
@@ -393,11 +394,12 @@ void CNPC_Antlion::Spawn( void )
 
 		sInteraction02.vecRelativeOrigin = Vector(64, 0, 0);
 		sInteraction02.angRelativeAngles = QAngle(0, 180, 0);
-		//sInteraction01.iFlags |= SCNPC_FLAG_TEST_OTHER_ANGLES;
+		sInteraction02.iFlags |= SCNPC_FLAG_TEST_OTHER_ANGLES;
 		sInteraction02.iTriggerMethod = SNPCINT_AUTOMATIC_IN_COMBAT;
 		sInteraction02.flDelay = 7.5f;
 		sInteraction02.iFlags |= SCNPC_FLAG_MAPBASE_ADDITION;
 		sInteraction02.flDistSqr = (8 * 8);
+		sInteraction02.flMaxAngleDiff = 180.0f; // Initiate from any angle
 
 
 		AddScriptedNPCInteraction(&sInteraction01);
@@ -470,8 +472,8 @@ void CNPC_Antlion::Precache( void )
 #ifdef HL2_EPISODIC
 	if ( IsWorker() )
 	{
-		PrecacheModel( ANTLION_WORKER_MODEL );
-		PropBreakablePrecacheAll( MAKE_STRING( ANTLION_WORKER_MODEL ) );
+		PrecacheModel( DefaultOrCustomModel( ANTLION_WORKER_MODEL ) );
+		PropBreakablePrecacheAll( MAKE_STRING( DefaultOrCustomModel( ANTLION_WORKER_MODEL ) ) );
 		UTIL_PrecacheOther( "grenade_spit" );
 		PrecacheParticleSystem( "blood_impact_antlion_worker_01" );
 		PrecacheParticleSystem( "antlion_gib_02" );
@@ -480,8 +482,8 @@ void CNPC_Antlion::Precache( void )
 	else
 #endif // HL2_EPISODIC
 	{
-		PrecacheModel( ANTLION_MODEL );
-		PropBreakablePrecacheAll( MAKE_STRING( ANTLION_MODEL ) );
+		PrecacheModel( DefaultOrCustomModel( ANTLION_MODEL ) );
+		PropBreakablePrecacheAll( MAKE_STRING( DefaultOrCustomModel( ANTLION_MODEL ) ) );
 		PrecacheParticleSystem( "blood_impact_antlion_01" );
 		PrecacheParticleSystem( "AntlionGib" );
 	}

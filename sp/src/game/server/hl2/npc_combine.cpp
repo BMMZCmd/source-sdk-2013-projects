@@ -2551,6 +2551,24 @@ int CNPC_Combine::TranslateSchedule( int scheduleType )
 				}
 			}
 
+#ifdef MAPBASE
+			extern ConVar ai_enemy_memory_fixes;
+
+			// SCHED_COMBINE_ESTABLISH_LINE_OF_FIRE uses TASK_GET_PATH_TO_ENEMY_LKP_LOS, a task with a mistake
+			// detailed in CAI_BaseNPC::StartTask and fixed by ai_enemy_memory_fixes.
+			// 
+			// However, SCHED_COMBINE_ESTABLISH_LINE_OF_FIRE only stops being used once the NPC has LOS to its target.
+			// Since the fixed task now uses the enemy's last known position instead of the enemy's actual position,
+			// this schedule risks getting stuck in a loop.
+			// 
+			// This code makes the soldier run up directly to the last known position if it's visible, allowing the AI
+			// to mark the enemy as eluded.
+			if ( ai_enemy_memory_fixes.GetBool() && FVisible( GetEnemyLKP() ) )
+			{
+				return SCHED_COMBINE_PRESS_ATTACK;
+			}
+#endif
+
 			return SCHED_COMBINE_ESTABLISH_LINE_OF_FIRE;
 		}
 		break;
@@ -3145,13 +3163,22 @@ void CNPC_Combine::PainSound ( void )
 // Input  :
 // Output :
 //-----------------------------------------------------------------------------
+#ifdef MAPBASE
+void CNPC_Combine::LostEnemySound( CBaseEntity *pEnemy )
+#else
 void CNPC_Combine::LostEnemySound( void)
+#endif
 {
 	if ( gpGlobals->curtime <= m_flNextLostSoundTime )
 		return;
 
 #ifdef COMBINE_SOLDIER_USES_RESPONSE_SYSTEM
-	if (SpeakIfAllowed( TLK_CMB_LOSTENEMY, UTIL_VarArgs("lastseenenemy:%d", GetEnemyLastTimeSeen()) ))
+	AI_CriteriaSet modifiers;
+	ModifyOrAppendEnemyCriteria( modifiers, pEnemy );
+
+	modifiers.AppendCriteria( "lastseenenemy", gpGlobals->curtime - GetEnemies()->LastTimeSeen( pEnemy ) );
+
+	if (SpeakIfAllowed( TLK_CMB_LOSTENEMY, modifiers ))
 	{
 		m_flNextLostSoundTime = gpGlobals->curtime + random->RandomFloat(5.0,15.0);
 	}
@@ -3179,10 +3206,17 @@ void CNPC_Combine::LostEnemySound( void)
 // Input  :
 // Output :
 //-----------------------------------------------------------------------------
+#ifdef MAPBASE
+void CNPC_Combine::FoundEnemySound( CBaseEntity *pEnemy )
+#else
 void CNPC_Combine::FoundEnemySound( void)
+#endif
 {
 #ifdef COMBINE_SOLDIER_USES_RESPONSE_SYSTEM
-	SpeakIfAllowed( TLK_CMB_REFINDENEMY, SENTENCE_PRIORITY_HIGH );
+	AI_CriteriaSet modifiers;
+	ModifyOrAppendEnemyCriteria( modifiers, pEnemy );
+
+	SpeakIfAllowed( TLK_CMB_REFINDENEMY, modifiers, SENTENCE_PRIORITY_HIGH );
 #else
 	m_Sentences.Speak( "COMBINE_REFIND_ENEMY", SENTENCE_PRIORITY_HIGH );
 #endif

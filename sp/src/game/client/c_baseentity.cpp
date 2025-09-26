@@ -433,8 +433,7 @@ ScriptHook_t C_BaseEntity::g_Hook_UpdateOnRemove;
 ScriptHook_t C_BaseEntity::g_Hook_ModifyEmitSoundParams;
 #endif
 
-BEGIN_ENT_SCRIPTDESC_ROOT( C_BaseEntity, "Root class of all client-side entities" )
-	DEFINE_SCRIPT_INSTANCE_HELPER( &g_BaseEntityScriptInstanceHelper )
+BEGIN_ENT_SCRIPTDESC_ROOT_WITH_HELPER( C_BaseEntity, "Root class of all client-side entities", &g_BaseEntityScriptInstanceHelper )
 	DEFINE_SCRIPTFUNC_NAMED( GetAbsOrigin, "GetOrigin", "" )
 	DEFINE_SCRIPTFUNC_NAMED( ScriptGetForward, "GetForwardVector", "Get the forward vector of the entity" )
 #ifdef MAPBASE_VSCRIPT
@@ -485,6 +484,8 @@ BEGIN_ENT_SCRIPTDESC_ROOT( C_BaseEntity, "Root class of all client-side entities
 	DEFINE_SCRIPTFUNC_NAMED( ScriptEntityToWorldTransform, "EntityToWorldTransform", "Get the entity's transform" )
 
 	DEFINE_SCRIPTFUNC_NAMED( ScriptGetPhysicsObject, "GetPhysicsObject", "Get the entity's physics object if it has one" )
+	DEFINE_SCRIPTFUNC_NAMED( ScriptPhysicsInitNormal, "PhysicsInitNormal", "Initializes the entity's physics object with the specified solid type, solid flags, and whether to start asleep" )
+	DEFINE_SCRIPTFUNC_NAMED( ScriptPhysicsDestroyObject, "PhysicsDestroyObject", "Destroys the entity's physics object" )
 
 	DEFINE_SCRIPTFUNC( GetWaterLevel, "Get current level of water submergence" )
 
