@@ -2811,6 +2811,14 @@ HSCRIPT CBaseEntity::ScriptGetPhysicsObject( void )
 		return NULL;
 }
 
+//-----------------------------------------------------------------------------
+// Vscript: Gets the entity's physics object if it has one
+//-----------------------------------------------------------------------------
+void CBaseEntity::ScriptPhysicsInitNormal( int nSolidType, int nSolidFlags, bool createAsleep )
+{
+	VPhysicsInitNormal( (SolidType_t)nSolidType, nSolidFlags, createAsleep );
+}
+
 
 #ifdef GAME_DLL
 #define SCRIPT_NEVER_THINK TICK_NEVER_THINK
@@ -3025,7 +3033,7 @@ void CBaseEntity::ScriptSetContextThink( const char* szContext, HSCRIPT hFunc, f
 
 		float nextthink = gpGlobals->curtime + flTime;
 
-		pf->m_hfnThink = hFunc;
+		pf->m_hfnThink = g_pScriptVM->CopyObject( hFunc );
 		pf->m_flNextThink = nextthink;
 
 #ifdef GAME_DLL

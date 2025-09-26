@@ -498,6 +498,7 @@ END_DATADESC()
 #ifdef MAPBASE_VSCRIPT
 // TODO: Better placement?
 ScriptHook_t	g_Hook_PlayerRunCommand;
+ScriptHook_t	g_Hook_FindUseEntity;
 
 BEGIN_ENT_SCRIPTDESC( CBasePlayer, CBaseCombatCharacter, "The player entity." )
 
@@ -552,12 +553,20 @@ BEGIN_ENT_SCRIPTDESC( CBasePlayer, CBaseCombatCharacter, "The player entity." )
 	DEFINE_SCRIPTFUNC_NAMED( ScriptGetEyeUp, "GetEyeUp", "Gets the player's up eye vector." )
 
 	DEFINE_SCRIPTFUNC_NAMED( ScriptGetViewModel, "GetViewModel", "Returns the viewmodel of the specified index." )
+	
+	DEFINE_SCRIPTFUNC_NAMED( ScriptGetUseEntity, "GetUseEntity", "Gets the player's current use entity." )
+	DEFINE_SCRIPTFUNC_NAMED( ScriptGetHeldObject, "GetHeldObject", "Gets the player's currently held object IF it is being held by a gravity gun. To check for the player's held +USE object, use the standalone GetPlayerHeldEntity function." )
 
 	// 
 	// Hooks
 	// 
 	BEGIN_SCRIPTHOOK( g_Hook_PlayerRunCommand, "PlayerRunCommand", FIELD_VOID, "Called when running a player command on the server." )
 		DEFINE_SCRIPTHOOK_PARAM( "command", FIELD_HSCRIPT )
+	END_SCRIPTHOOK()
+	
+	BEGIN_SCRIPTHOOK( g_Hook_FindUseEntity, "FindUseEntity", FIELD_HSCRIPT, "Called when finding an entity to use. The 'entity' parameter is for the entity found by the default function. If 'is_radius' is true, then this entity was found by searching in a radius around the cursor, rather than being directly used. Return a different entity to use something else." )
+		DEFINE_SCRIPTHOOK_PARAM( "entity", FIELD_HSCRIPT )
+		DEFINE_SCRIPTHOOK_PARAM( "is_radius", FIELD_BOOLEAN )
 	END_SCRIPTHOOK()
 
 END_SCRIPTDESC();
@@ -4466,6 +4475,11 @@ void CBasePlayer::SetSuitUpdate(const char *name, int fgroup, int iNoRepeatTime)
 		return;
 	}
 
+#ifdef MAPBASE
+	if ( HasContext("silent_suit", "1") )
+		return;
+#endif
+
 	// if name == NULL, then clear out the queue
 
 	if (!name)
@@ -7950,7 +7964,7 @@ Activity CBasePlayer::Weapon_TranslateActivity( Activity baseAct, bool *pRequire
 {
 	Activity weaponTranslation = BaseClass::Weapon_TranslateActivity( baseAct, pRequired );
 	
-	if ( GetActiveWeapon() && GetActiveWeapon()->IsEffectActive(EF_NODRAW) && baseAct != ACT_ARM )
+	if ( GetActiveWeapon() && !GetActiveWeapon()->IsWeaponVisible() && baseAct != ACT_ARM )
 	{
 		// Our weapon is holstered. Use the base activity.
 		return baseAct;
@@ -8857,6 +8871,7 @@ void SendProxy_ShiftPlayerSpawnflags( const SendProp *pProp, const void *pStruct
 		// See baseplayer_shared.h for more details.
 		SendPropInt			( SENDINFO( m_spawnflags ), 3, SPROP_UNSIGNED, SendProxy_ShiftPlayerSpawnflags ),
 
+		SendPropBool		( SENDINFO( m_bDrawPlayerLegs ) ),
 		SendPropBool		( SENDINFO( m_bDrawPlayerModelExternally ) ),
 		SendPropBool		( SENDINFO( m_bInTriggerFall ) ),
 #endif
