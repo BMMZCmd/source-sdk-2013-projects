@@ -7889,7 +7889,7 @@ void CBasePlayer::Weapon_Drop( CBaseCombatWeapon *pWeapon, const Vector *pvecTar
 // Purpose: 
 // Input  : weaponSlot - 
 //-----------------------------------------------------------------------------
-void CBasePlayer::Weapon_DropSlot( int weaponSlot )
+void CBasePlayer::Weapon_DropSlot( int weaponSlot, int weaponPosition )
 {
 	CBaseCombatWeapon *pWeapon;
 
@@ -7903,7 +7903,10 @@ void CBasePlayer::Weapon_DropSlot( int weaponSlot )
 			// If the slots match, it's already occupied
 			if ( pWeapon->GetSlot() == weaponSlot )
 			{
-				Weapon_Drop( pWeapon, NULL, NULL );
+				if (pWeapon->GetPosition() == weaponPosition)
+				{
+					Weapon_Drop(pWeapon, NULL, NULL);
+				}
 			}
 		}
 	}

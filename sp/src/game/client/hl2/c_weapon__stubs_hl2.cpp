@@ -44,6 +44,9 @@ STUB_WEAPON_CLASS( weapon_hopwire, WeaponHopwire, C_BaseHLCombatWeapon );
 #ifdef HL2_LOSTCOAST
 STUB_WEAPON_CLASS( weapon_oldmanharpoon, WeaponOldManHarpoon, C_WeaponCitizenPackage );
 #endif
+
+// junta
+STUB_WEAPON_CLASS(weapon_g3, WeaponG3, C_HLMachineGun);
 #endif
 
 

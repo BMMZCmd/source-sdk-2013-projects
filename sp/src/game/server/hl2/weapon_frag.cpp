@@ -54,6 +54,7 @@ public:
 	bool	Reload( void );
 
 	bool	ShouldDisplayHUDHint() { return true; }
+	virtual void Drop(const Vector& vecVelocity);
 
 private:
 	void	ThrowGrenade( CBasePlayer *pPlayer );
@@ -505,3 +506,8 @@ void CWeaponFrag::RollGrenade( CBasePlayer *pPlayer )
 	gamestats->Event_WeaponFired( pPlayer, true, GetClassname() );
 }
 
+void CWeaponFrag::Drop(const Vector& vecVelocity)
+{
+	DecrementAmmo(GetOwner());
+	BaseClass::Drop(vecVelocity);
+}

@@ -81,7 +81,7 @@ extern ConVar player_squad_autosummon_enabled;
 #define PLAYER_HULL_REDUCTION	0.70
 
 // This switches between the single primary weapon, and multiple weapons with buckets approach (jdw)
-#define	HL2_SINGLE_PRIMARY_WEAPON_MODE	0
+#define	HL2_SINGLE_PRIMARY_WEAPON_MODE	1
 
 #define TIME_IGNORE_FALL_DAMAGE 10.0
 
@@ -3388,7 +3388,7 @@ void CHL2_Player::Weapon_Equip( CBaseCombatWeapon *pWeapon )
 
 	if ( pWeapon->GetSlot() == WEAPON_PRIMARY_SLOT )
 	{
-		Weapon_DropSlot( WEAPON_PRIMARY_SLOT );
+		Weapon_DropSlot(WEAPON_PRIMARY_SLOT, pWeapon->GetPosition());
 	}
 
 #endif
@@ -3501,7 +3501,15 @@ bool CHL2_Player::ClientCommand( const CCommand &args )
 	//Drop primary weapon
 	if ( !Q_stricmp( args[0], "DropPrimary" ) )
 	{
-		Weapon_DropSlot( WEAPON_PRIMARY_SLOT );
+		if (IsAlive() && !IsInAVehicle())
+		{
+			// Additions!
+			CBaseCombatWeapon* pWeapon = GetActiveWeapon();
+			if (pWeapon)
+			{
+				Weapon_DropSlot(pWeapon->GetSlot(), pWeapon->GetPosition());
+			}
+		}
 		return true;
 	}
 
@@ -3615,8 +3623,8 @@ void CHL2_Player::PlayerUse ( void )
 			usedSomething = true;
 		}
 
-#if	HL2_SINGLE_PRIMARY_WEAPON_MODE
-
+//#if	HL2_SINGLE_PRIMARY_WEAPON_MODE
+/*
 		//Check for weapon pick-up
 		if ( m_afButtonPressed & IN_USE )
 		{
@@ -3631,14 +3639,15 @@ void CHL2_Player::PlayerUse ( void )
 				}
 				else
 				{
-					Weapon_DropSlot( pWeapon->GetSlot() );
+					Weapon_DropSlot( pWeapon->GetSlot(), pWeapon->GetPosition());
 					Weapon_Equip( pWeapon );
 				}
 
 				usedSomething = true;
 			}
 		}
-#endif
+*/
+//#endif
 	}
 	else if ( m_afButtonPressed & IN_USE )
 	{
