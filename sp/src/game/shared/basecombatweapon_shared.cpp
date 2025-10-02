@@ -24,6 +24,10 @@
 #include "tf_shareddefs.h"
 #endif
 
+#ifdef CLIENT_DLL  
+#include "c_baseplayer.h"
+#endif
+
 #if !defined( CLIENT_DLL )
 
 // Game DLL Headers
@@ -40,6 +44,17 @@
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
+
+//forward declarations of callbacks used by viewmodel_adjust_enable and viewmodel_adjust_fov
+void vm_adjust_enable_callback(IConVar* pConVar, char const* pOldString, float flOldValue);
+
+ConVar viewmodel_adjust_forward("viewmodel_adjust_forward", "0", FCVAR_REPLICATED);
+ConVar viewmodel_adjust_right("viewmodel_adjust_right", "0", FCVAR_REPLICATED);
+ConVar viewmodel_adjust_up("viewmodel_adjust_up", "0", FCVAR_REPLICATED);
+ConVar viewmodel_adjust_pitch("viewmodel_adjust_pitch", "0", FCVAR_REPLICATED);
+ConVar viewmodel_adjust_yaw("viewmodel_adjust_yaw", "0", FCVAR_REPLICATED);
+ConVar viewmodel_adjust_roll("viewmodel_adjust_roll", "0", FCVAR_REPLICATED);
+ConVar viewmodel_adjust_enabled("viewmodel_adjust_enabled", "0", FCVAR_REPLICATED | FCVAR_CHEAT, "enabled viewmodel adjusting", vm_adjust_enable_callback);
 
 // The minimum time a hud hint for a weapon should be on screen. If we switch away before
 // this, then teh hud hint counter will be deremented so the hint will be shown again, as
@@ -102,6 +117,9 @@ CBaseCombatWeapon::CBaseCombatWeapon()
 	m_nCritChecks = 1;
 	m_nCritSeedRequests = 0;
 #endif // TF
+
+	m_bIsIronsighted = false;
+	m_flIronsightedTime = 0.0f;
 }
 
 //-----------------------------------------------------------------------------
@@ -324,6 +342,9 @@ void CBaseCombatWeapon::Precache( void )
 		Warning( "Error reading weapon data file for: %s\n", GetWeaponScriptName() );
 	//	Remove( );	//don't remove, this gets released soon!
 	}
+
+	PrecacheScriptSound("Player.IronSightIn");
+	PrecacheScriptSound("Player.IronSightOut");
 }
 
 #ifdef MAPBASE
@@ -839,6 +860,8 @@ void CBaseCombatWeapon::Drop( const Vector &vecVelocity )
 		}
 	}
 #endif
+
+	DisableIronsights();
 }
 
 
@@ -1730,6 +1753,8 @@ selects and deploys each weapon as you pass it. (sjb)
 
 	SetContextThink( NULL, 0, HIDEWEAPON_THINK_CONTEXT );
 
+	DisableIronsights();
+
 	return true;
 }
 
@@ -1807,6 +1832,8 @@ bool CBaseCombatWeapon::Holster( CBaseCombatWeapon *pSwitchingTo )
 	if (HasSpawnFlags(SF_WEAPON_NO_AUTO_SWITCH_WHEN_EMPTY))
 		RemoveSpawnFlags(SF_WEAPON_NO_AUTO_SWITCH_WHEN_EMPTY);
 #endif
+
+	DisableIronsights();
 
 	return true;
 }
@@ -2465,6 +2492,8 @@ bool CBaseCombatWeapon::DefaultReload( int iClipSize1, int iClipSize2, int iActi
 	m_flNextPrimaryAttack = m_flNextSecondaryAttack = flSequenceEndTime;
 
 	m_bInReload = true;
+	
+	DisableIronsights();
 
 	return true;
 }
@@ -3069,6 +3098,12 @@ BEGIN_PREDICTION_DATA( CBaseCombatWeapon )
 	// DEFINE_FIELD( m_OnPlayerPickup, COutputEvent ),
 	// DEFINE_FIELD( m_pConstraint, FIELD_INTEGER ),
 
+	DEFINE_PRED_FIELD(m_bIsIronsighted, FIELD_BOOLEAN, FTYPEDESC_INSENDTABLE),
+	DEFINE_PRED_FIELD(m_flIronsightedTime, FIELD_FLOAT, FTYPEDESC_INSENDTABLE),
+
+	DEFINE_FIELD(m_bIsIronsighted, FIELD_BOOLEAN),
+	DEFINE_FIELD(m_flIronsightedTime, FIELD_FLOAT),
+
 END_PREDICTION_DATA()
 
 #endif	// ! CLIENT_DLL
@@ -3366,6 +3401,132 @@ REGISTER_SEND_PROXY_NON_MODIFIED_POINTER( SendProxy_SendNonLocalWeaponDataTable 
 
 #endif
 
+Vector CBaseCombatWeapon::GetIronsightPositionOffset(void) const
+{
+	if (viewmodel_adjust_enabled.GetBool())
+		return Vector(viewmodel_adjust_forward.GetFloat(), viewmodel_adjust_right.GetFloat(), viewmodel_adjust_up.GetFloat());
+	return GetWpnData().vecIronsightPosOffset;
+}
+
+QAngle CBaseCombatWeapon::GetIronsightAngleOffset(void) const
+{
+	if (viewmodel_adjust_enabled.GetBool())
+		return QAngle(viewmodel_adjust_pitch.GetFloat(), viewmodel_adjust_yaw.GetFloat(), viewmodel_adjust_roll.GetFloat());
+	return GetWpnData().angIronsightAngOffset;
+}
+
+void vm_adjust_enable_callback(IConVar* pConVar, char const* pOldString, float flOldValue)
+{
+	ConVarRef sv_cheats("sv_cheats");
+	if (!sv_cheats.IsValid() || sv_cheats.GetBool())
+		return;
+
+	ConVarRef var(pConVar);
+
+	if (var.GetBool())
+		var.SetValue("0");
+}
+
+#ifdef CLIENT_DLL
+void RecvProxy_ToggleSights(const CRecvProxyData* pData, void* pStruct, void* pOut)
+{
+	CBaseCombatWeapon* pWeapon = (CBaseCombatWeapon*)pStruct;
+	if (pData->m_Value.m_Int)
+		pWeapon->EnableIronsights();
+	else
+		pWeapon->DisableIronsights();
+}
+#endif
+
+bool CBaseCombatWeapon::IsIronsighted(void)
+{
+	return (m_bIsIronsighted || viewmodel_adjust_enabled.GetBool());
+}
+
+void CBaseCombatWeapon::ToggleIronsights(void) //No possible use Iron Sight durin reloading
+{
+	if (m_bInReload == true)
+	{
+		DisableIronsights();
+	}
+	else
+	{
+		if (m_bIsIronsighted)
+			DisableIronsights();
+		else
+			EnableIronsights();
+	}
+}
+
+void CBaseCombatWeapon::EnableIronsights(void)
+{
+	if (!CanUseIronsight())
+		return;
+
+	/*
+#ifdef CLIENT_DLL
+	if (!prediction->IsFirstTimePredicted())
+	return;
+#endif
+	*/
+
+	if (!HasIronsights() || m_bIsIronsighted)
+		return;
+
+	CBasePlayer* pOwner = ToBasePlayer(GetOwner());
+
+	if (!pOwner)
+		return;
+
+	pOwner->EmitSound("Player.IronSightIn");
+
+	//Set ConVar "crosshair" to 0 to hide crosshair	
+	ConVar* crosshair = cvar->FindVar("Crosshair");
+	crosshair->SetValue("0");
+	m_bIsIronsighted = true;
+	SetIronsightTime();
+}
+
+void CBaseCombatWeapon::DisableIronsights(void)
+{
+	if (!CanUseIronsight())
+		return;
+
+	/*
+#ifdef CLIENT_DLL
+	if( !prediction->IsFirstTimePredicted() )
+	return;
+#endif
+	*/
+	// We are not using prediction in singleplayer
+
+	if (!HasIronsights() || !m_bIsIronsighted)
+		return;
+
+	CBasePlayer* pOwner = ToBasePlayer(GetOwner());
+
+	if (!pOwner)
+		return;
+
+	pOwner->EmitSound("Player.IronSightOut");
+
+	//Set ConVar "crosshair" to 1 to show crosshair	
+	ConVar* crosshair = cvar->FindVar("Crosshair");
+	crosshair->SetValue("1");
+	m_bIsIronsighted = false;
+	SetIronsightTime();
+}
+
+void CBaseCombatWeapon::SetIronsightTime(void)
+{
+	m_flIronsightedTime = gpGlobals->curtime;
+}
+
+bool CBaseCombatWeapon::CanUseIronsight() const
+{
+	return GetWpnData().bCanUseIronsight;
+}
+
 #if PREDICTION_ERROR_CHECK_LEVEL > 1
 #define SendPropTime SendPropFloat
 #define RecvPropTime RecvPropFloat
@@ -3440,6 +3601,9 @@ BEGIN_NETWORK_TABLE(CBaseCombatWeapon, DT_BaseCombatWeapon)
 	SendPropInt( SENDINFO(m_spawnflags), 8, SPROP_UNSIGNED ),
 #endif
 
+	SendPropBool(SENDINFO(m_bIsIronsighted)),
+	SendPropFloat(SENDINFO(m_flIronsightedTime)),
+
 #else
 	RecvPropDataTable("LocalWeaponData", 0, 0, &REFERENCE_RECV_TABLE(DT_LocalWeaponData)),
 	RecvPropDataTable("LocalActiveWeaponData", 0, 0, &REFERENCE_RECV_TABLE(DT_LocalActiveWeaponData)),
@@ -3455,5 +3619,9 @@ BEGIN_NETWORK_TABLE(CBaseCombatWeapon, DT_BaseCombatWeapon)
 	RecvPropInt( RECVINFO( m_spawnflags ) ),
 #endif
 
+	RecvPropInt(RECVINFO(m_bIsIronsighted), 0, RecvProxy_ToggleSights), //note: RecvPropBool is actually RecvPropInt (see its implementation), but we need a proxy
+	RecvPropFloat(RECVINFO(m_flIronsightedTime)),
+
 #endif
+
 END_NETWORK_TABLE()

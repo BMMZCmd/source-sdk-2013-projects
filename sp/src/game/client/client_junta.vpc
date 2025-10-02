@@ -127,6 +127,11 @@ $Project "Client (Junta)"
 			$File	"hl2\vgui_rootpanel_hl2.cpp"
 			$File	"episodic\c_npc_puppet.cpp"
 		}
+		
+		$Folder "JUNTA DLL"
+		{
+			$File	"junta\ironsight.cpp"
+		}
 	}
 	
 }

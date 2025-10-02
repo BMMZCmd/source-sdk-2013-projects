@@ -414,6 +414,9 @@ bool CWeaponShotgun::StartReload( void )
 #endif
 
 	m_bInReload = true;
+
+	DisableIronsights();
+
 	return true;
 }
 
