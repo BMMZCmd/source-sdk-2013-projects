@@ -490,7 +490,7 @@ void FileWeaponInfo_t::Parse( KeyValues *pKeyValuesData, const char *szWeaponNam
 	m_bAllowFlipping = ( pKeyValuesData->GetInt( "AllowFlipping", 1 ) != 0 ) ? true : false;
 	m_bMeleeWeapon = ( pKeyValuesData->GetInt( "MeleeWeapon", 0 ) != 0 ) ? true : false;
 
-#ifdef MAPBASE
+#if defined (MAPBASE) || (CSS_WEAPONS_IN_HL2)
 	m_flViewmodelFOV = pKeyValuesData->GetFloat( "viewmodel_fov", 0.0f );
 	m_flBobScale = pKeyValuesData->GetFloat( "bob_scale", 1.0f );
 	m_flSwayScale = pKeyValuesData->GetFloat( "sway_scale", 1.0f );

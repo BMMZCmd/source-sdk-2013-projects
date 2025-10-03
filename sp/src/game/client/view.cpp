@@ -107,7 +107,7 @@ extern ConVar cl_forwardspeed;
 static ConVar v_centermove( "v_centermove", "0.15");
 static ConVar v_centerspeed( "v_centerspeed","500" );
 
-#if defined(TF_CLIENT_DLL) || defined(MAPBASE)
+#if defined(TF_CLIENT_DLL) || defined(MAPBASE) || defined(CSS_WEAPONS_IN_HL2)
 // 54 degrees approximates a 35mm camera - we determined that this makes the viewmodels
 // and motions look the most natural.
 ConVar v_viewmodel_fov( "viewmodel_fov", "54", FCVAR_ARCHIVE );
@@ -115,6 +115,7 @@ ConVar v_viewmodel_fov_script_override( "viewmodel_fov_script_override", "0", FC
 #else
 ConVar v_viewmodel_fov( "viewmodel_fov", "54", FCVAR_CHEAT );
 #endif
+
 ConVar mat_viewportscale( "mat_viewportscale", "1.0", FCVAR_ARCHIVE, "Scale down the main viewport (to reduce GPU impact on CPU profiling)", true, (1.0f / 640.0f), true, 1.0f );
 ConVar mat_viewportupscale( "mat_viewportupscale", "1", FCVAR_ARCHIVE, "Scale the viewport back up" );
 ConVar cl_leveloverview( "cl_leveloverview", "0", FCVAR_CHEAT );
@@ -677,7 +678,7 @@ void CViewRender::SetUpViews()
 	Vector ViewModelOrigin;
 	QAngle ViewModelAngles;
 
-#ifdef MAPBASE
+#if defined (MAPBASE) || (CSS_WEAPONS_IN_HL2)
 	view.fovViewmodel = g_pClientMode->GetViewModelFOV();
 #endif
 
@@ -762,7 +763,7 @@ void CViewRender::SetUpViews()
 	float flFOVOffset = fDefaultFov - view.fov;
 
 	//Adjust the viewmodel's FOV to move with any FOV offsets on the viewer's end
-#ifdef MAPBASE
+#if defined (MAPBASE) || (CSS_WEAPONS_IN_HL2)
 	view.fovViewmodel = max(0.001f, view.fovViewmodel - flFOVOffset);
 #else
 	view.fovViewmodel = g_pClientMode->GetViewModelFOV() - flFOVOffset;
