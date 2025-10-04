@@ -24,10 +24,6 @@ public:
 	void PrimaryAttack(void);
 	void ItemPostFrame(void);
 
-	//Activity GetPrimaryAttackActivity(void);
-
-	void ImpactEffect(trace_t &traceHit);
-
 	void BTorchSpark(trace_t *traceHit);
 
 private:
@@ -95,10 +91,7 @@ void CWeaponBlowtorch::PrimaryAttack(void)
 		// did I hit someone?
 		if (pHurt)
 		{
-			//Msg("damaged\n");
 			UTIL_TraceLine(vecSrc, vecEnd, MASK_SHOT_HULL, pPlayer, COLLISION_GROUP_NONE, &tr);
-			//UTIL_AddDebugLine(vecSrc, vecEnd, true, true);
-			ImpactEffect(tr);
 			BTorchSpark(&tr);
 
 			EmitSound("Weapon_Blowtorch.Fire");
@@ -108,8 +101,6 @@ void CWeaponBlowtorch::PrimaryAttack(void)
 		}
 		else
 		{
-			//Msg("miss\n");
-
 			if (tr.m_pEnt)
 			{
 				CTakeDamageInfo dmgInfo(this, pPlayer, BLOWTORCH_DAMAGE, DMG_BURN);
@@ -117,7 +108,6 @@ void CWeaponBlowtorch::PrimaryAttack(void)
 
 				UTIL_TraceLine(vecSrc, vecEnd, MASK_SHOT_HULL, pPlayer, COLLISION_GROUP_NONE, &tr);
 				//UTIL_AddDebugLine(vecSrc, vecEnd, true, true);
-				ImpactEffect(tr);
 				BTorchSpark(&tr);
 			}
 		}
@@ -126,14 +116,6 @@ void CWeaponBlowtorch::PrimaryAttack(void)
 		//i wanna log ig
 		DevMsg("Owner is not a player!\n");
 	}
-}
-
-void CWeaponBlowtorch::ImpactEffect(trace_t &traceHit)
-{
-
-	//FIXME: need new decals
-	UTIL_DecalTrace(&traceHit, "RedGlowFade");
-
 }
 
 void CWeaponBlowtorch::BTorchSpark(trace_t *traceHit)

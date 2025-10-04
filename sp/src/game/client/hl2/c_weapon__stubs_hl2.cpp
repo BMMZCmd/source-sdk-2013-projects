@@ -93,8 +93,8 @@ STUB_WEAPON_CLASS(weapon_blowtorch, WeaponBlowtorch, C_BaseHLCombatWeapon);
 STUB_WEAPON_CLASS(weapon_briefcase, WeaponBriefcase, C_BaseHLCombatWeapon);
 STUB_WEAPON_CLASS(weapon_camera, WeaponCamera, C_BaseHLCombatWeapon);
 STUB_WEAPON_CLASS(weapon_radio, WeaponRadio, C_BaseHLCombatWeapon);
-STUB_WEAPON_CLASS(weapon_m60, WeaponM60, CBase_CSS_HL2_Rifle);
-// what do you think?
+STUB_WEAPON_CLASS(weapon_m60, WeaponM60, C_HLMachineGun);
 #endif
 
+STUB_WEAPON_CLASS(weapon_m60_experimental, WeaponM60Experimental, CBase_CSS_HL2_Rifle);
 #endif

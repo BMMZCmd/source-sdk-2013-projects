@@ -169,6 +169,8 @@ extern vgui::IInputInternal *g_InputInternal;
 #include "sixense/in_sixense.h"
 #endif
 
+//#include "hud_objectivemenu.h" // our custom HUD
+
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
@@ -1084,6 +1086,8 @@ int CHLClient::Init( CreateInterfaceFn appSystemFactory, CreateInterfaceFn physi
 #ifndef _X360
 	HookHapticMessages(); // Always hook the messages
 #endif
+
+	//HookObjectiveMsg();
 
 	return true;
 }
@@ -2630,3 +2634,25 @@ CSteamID GetSteamIDForPlayerIndex( int iPlayerIndex )
 }
 
 #endif
+/*
+void RecvObjectiveText(bf_read& msg)
+{
+	char szText[512];
+	msg.ReadString(szText, sizeof(szText));
+
+	CHudObjectives* pHud = dynamic_cast<CHudObjectives*>(GET_HUDELEMENT(CHudObjectives));
+	if (pHud)
+	{
+		if (szText[0] != '\0')
+			pHud->SetObjectiveText(szText);
+		else
+			pHud->HideObjective();
+	}
+}
+
+void HookObjectiveMsg()
+{
+	usermessages->Register("ObjectiveText", -1);
+	usermessages->HookMessage("ObjectiveText", RecvObjectiveText);
+}
+*/

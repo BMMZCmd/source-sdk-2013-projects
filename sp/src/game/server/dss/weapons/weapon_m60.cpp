@@ -13,10 +13,7 @@ public:
 
 	DECLARE_SERVERCLASS();
 
-	virtual void	ItemPostFrame(void);
-	virtual void	FireBullets(const FireBulletsInfo_t& info);
-	virtual float	GetFireRate(void) { return; };
-	virtual int		WeaponRangeAttack1Condition(float flDot, float flDist);
+	virtual float	GetFireRate(void) { return 0.1f; };
 	virtual bool	Deploy(void);
 
 	void AddViewKick(void);
@@ -41,21 +38,6 @@ END_DATADESC()
 
 CWeaponM60::CWeaponM60() 
 {
-}
-
-void CWeaponM60::ItemPostFrame(void)
-{
-	BaseClass::ItemPostFrame();
-}
-
-void CWeaponM60::FireBullets(const FireBulletsInfo_t& info)
-{
-	BaseClass::FireBullets(info);
-}
-
-int CWeaponM60::WeaponRangeAttack1Condition(float flDot, float flDist)
-{
-	return BaseClass::WeaponRangeAttack1Condition(flDot, flDist);
 }
 
 bool CWeaponM60::Deploy(void)

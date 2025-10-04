@@ -19,8 +19,6 @@ public:
 	void PrimaryAttack(void);
 	void ItemPostFrame(void);
 
-	DECLARE_ACTTABLE();
-
 private:
 	float m_flNextPrimaryAttack;
 };
@@ -34,13 +32,6 @@ PRECACHE_WEAPON_REGISTER(weapon_camera);
 BEGIN_DATADESC(CWeaponCamera)
 	DEFINE_FIELD(m_flNextPrimaryAttack, FIELD_TIME),
 END_DATADESC()
-
-acttable_t CWeaponCamera::m_acttable[] =
-{
-	{ ACT_VM_IDLE, ACT_VM_PRIMARYATTACK, true }
-};
-
-IMPLEMENT_ACTTABLE(CWeaponCamera);
 
 CWeaponCamera::CWeaponCamera(void)
 {

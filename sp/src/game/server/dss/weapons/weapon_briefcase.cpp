@@ -19,8 +19,6 @@ public:
 	void PrimaryAttack(void);
 	void ItemPostFrame(void);
 
-	DECLARE_ACTTABLE();
-
 private:
 	float m_flNextPrimaryAttack;
 };
@@ -35,16 +33,9 @@ BEGIN_DATADESC(CWeaponBriefcase)
 	DEFINE_FIELD(m_flNextPrimaryAttack, FIELD_TIME),
 END_DATADESC()
 
-acttable_t CWeaponBriefcase::m_acttable[] =
-{
-	{ ACT_VM_IDLE, ACT_VM_PRIMARYATTACK, true }
-};
-
-IMPLEMENT_ACTTABLE(CWeaponBriefcase);
-
 CWeaponBriefcase::CWeaponBriefcase(void)
 {
-	m_flNextPrimaryAttack = 0.0f; // initialize delay timer
+	m_flNextPrimaryAttack = 0.0f;
 }
 
 void CWeaponBriefcase::PrimaryAttack(void)
