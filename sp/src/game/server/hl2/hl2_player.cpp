@@ -3291,6 +3291,7 @@ int CHL2_Player::GiveAmmo( int nCount, int nAmmoIndex, bool bSuppressSound)
 	if (nAmmoIndex < 0)
 		return 0;
 
+
 	bool bCheckAutoSwitch = false;
 	if (!HasAnyAmmoOfType(nAmmoIndex))
 	{
@@ -3870,11 +3871,19 @@ bool CHL2_Player::Weapon_CanSwitchTo( CBaseCombatWeapon *pWeapon )
 	if (pVehicle && !pPlayer->UsingStandardWeaponsInVehicle())
 		return false;
 
-	if ( !pWeapon->HasAnyAmmo() && !GetAmmoCount( pWeapon->m_iPrimaryAmmoType ) )
-		return false;
+	if (!pWeapon->HasAnyAmmo() && !GetAmmoCount(pWeapon->m_iPrimaryAmmoType))
+	{
+		Msg("HasAnyAmmo is being called!\n");
+		//return false;
+		return true;
+	}
 
-	if ( !pWeapon->CanDeploy() )
-		return false;
+	if (!pWeapon->CanDeploy()) 
+	{
+		Msg("CanDeploy is being called!\n");
+		//return false;
+		return true;
+	}
 
 	if ( GetActiveWeapon() )
 	{
@@ -3884,8 +3893,12 @@ bool CHL2_Player::Weapon_CanSwitchTo( CBaseCombatWeapon *pWeapon )
 			return true;
 		}
 
-		if ( !GetActiveWeapon()->CanHolster() )
-			return false;
+		if (!GetActiveWeapon()->CanHolster())
+		{
+			Msg("CanHolster is being called!\n");
+			//return false;
+			return true;
+		}
 	}
 
 	return true;
